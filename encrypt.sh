@@ -1,7 +1,7 @@
 #! /bin/bash
 #=========================================================
 #Created By: Brandon Cochrane, Technical Architect, Salesforce
-#Last Updated: Jul 26 2023
+#Last Updated: Jul 29 2024
 #
 #==============README=====================================
 #Purpose if this script is to simplify the encryption and decryption of mMulesoft properties. 
@@ -16,11 +16,22 @@
 # you can update the defaults by changing the ${METHOD:-<value>} set at various different stages
 # It is also a good idea, if you change the default values, to also update the prompt, so you know what is being set if you run the default config. 
 #=========================================================
+#Updating default values in the prompts
+#to update the default value replace the "AES" below with the plain text value of the desired option. 
+#Update the prompt as well to identify the default value by moving the [] brackets in the prompt above where the default value assignment occurs
+#for example: ALGORITHM=${ALGORITHM:-AES} will become ALGORITHM=${ALGORITHM:-RSA
 
+#Define default key values
+DEFAULTKEY="mulemulemulemule"
+DEFAULTREKEY="re-encryptionkey"
+isDISPLAYKEYS="false" #enum"[true, false]
+
+#start prompt
 echo "Values in [] brackets are defaults for the prompt. Press enter to use the default." 
 #example command = java -cp secure-properties-tool.jar com.mulesoft.tools.SecurePropertiesTool string encrypt Blowfish CBC mulemulemulemule encryptThisString
-DEFAULTKEY="tooltooltooltool"
-DEFAULTREKEY="mulemulemulemule"
+
+
+
 #beginning string
 BEGIN="java -cp secure-properties-tool.jar com.mulesoft.tools.SecurePropertiesTool "
 #set method options are: string, file
@@ -48,6 +59,9 @@ fi
 
 #set algorithm options: AES is default
 read -p "What is the algorithm? ([AES], Blowfish, RSA, Camellia, CAST5, CAST6, DES, DESede, Noekeon, RC2, RC5, RC6, Rijndael, SEED, Serpent, Skipjack, TEA, Twofish, XTEA): " ALGORITHM
+#to update the default value replace the "AES" below with the plain text value of the desired option. 
+#Update the prompt as well to identify the default value by moving the [] brackets in the prompt above
+#for example: ALGORITHM=${ALGORITHM:-RSA}
 ALGORITHM=${ALGORITHM:-AES}
 
 #set mode options: CBC is default
@@ -55,7 +69,12 @@ read -p "What is the mode? ([CBC], CFB, ECB, OFB): " MODE
 MODE=${MODE:-CBC}
 
 #set key options: KEY must be 16 characters long to work properly
-read -p "What is the key? ["$DEFAULTKEY"]: " KEY
+DISPLAYDEFAULTKEY="******"
+if [ $isDISPLAYKEYS == 'true' ]
+then
+    DISPLAYDEFAULTKEY=$DEFAULTKEY
+fi
+read -p "What is the key? ["$DISPLAYDEFAULTKEY"]: " KEY
 #sets default value if one wasn't provided by user
 KEY=${KEY:-default} 
 if [ $KEY == "default" ]
@@ -99,7 +118,12 @@ fi
 if [ $REENCRYPT ]
 then
     #set key options: KEY must be 16 characters long to work properly
-    read -p "What is the key used to re encrypt? ["$DEFAULTREKEY"]: " REKEY
+    DISPLAYDEFAULTREKEY="******"
+    if [ $isDISPLAYKEYS  == 'true' ]
+    then
+        DISPLAYDEFAULTREKEY=$DEFAULTREKEY
+    fi
+    read -p "What is the key used to re encrypt? ["$DISPLAYDEFAULTREKEY"]: " REKEY
     #sets default value if one wasn't provided by user
     REKEY=${REKEY:-default} 
     if [ $REKEY == "default" ]
