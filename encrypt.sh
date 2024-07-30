@@ -11,6 +11,7 @@
 # 1. place this script in the same folder as the secure-properties-tool.jar
 # 2. run the script through the terminal with the sh command and follow the prompts
 #   2.a. This was written for Mac. on Windows the execution process will be slightly different.
+#   2.b. On Windows Git Bash needs to be used for the script to run correctly. It will not work in CMD or PowerShell
 #
 # Usage Tips: Copy this file for different environments and update the defaults to speed up the encryption and decryption processes depending on context
 # you can update the defaults by changing the ${METHOD:-<value>} set at various different stages
