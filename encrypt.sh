@@ -35,18 +35,24 @@ echo "Values in [] brackets are defaults for the prompt. Press enter to use the 
 #beginning string
 BEGIN="java -cp secure-properties-tool.jar com.mulesoft.tools.SecurePropertiesTool "
 #set method options are: string, file
-read -p "What is the method? ([string], file(f)): " METHOD
+read -p "What is the method? ([string](s), file(f)): " METHOD
 METHOD=${METHOD:-string}
-
+if [ $METHOD == "s" ]
+then
+    METHOD="string"
+fi
 if [ $METHOD == "f" ]
 then
     METHOD="file"
 fi
 #set operation options are: encrypt, decrypt
-read -p "What is the operation? ([encrypt], decrypt(d), reencrypt(r)): " OPERATION
+read -p "What is the operation? ([encrypt](e), decrypt(d), reencrypt(r)): " OPERATION
 OPERATION=${OPERATION:-encrypt}
 REENCRYPT=""
-
+if [ $OPERATION == "e" ]
+then
+    OPERATION="encrypt"
+fi
 if [ $OPERATION == "d" ]
 then
     OPERATION="decrypt"
