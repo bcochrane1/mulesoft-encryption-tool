@@ -19,7 +19,7 @@
 #Updating default values in the prompts
 #to update the default value replace the "AES" below with the plain text value of the desired option. 
 #Update the prompt as well to identify the default value by moving the [] brackets in the prompt above where the default value assignment occurs
-#for example: ALGORITHM=${ALGORITHM:-AES} will become ALGORITHM=${ALGORITHM:-RSA
+#for example: ALGORITHM=${ALGORITHM:-AES} will become ALGORITHM=${ALGORITHM:-RSA}
 
 #Define default key values
 DEFAULTKEY="mulemulemulemule"
